@@ -21,8 +21,8 @@ def job():
     for i in pythonclasstime:
         runTime = i[0] + " " + i[1]
         if i and date == str(runTime):
-            fromaddr = "priyampatel115@gmail.com"
-            toaddr = "priyampatel97@yahoo.com"
+            fromaddr = ""
+            toaddr = ""
 
             msg = MIMEMultipart()
 
@@ -44,15 +44,15 @@ def job():
 
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login(fromaddr, "lionKing21")
+            server.login(fromaddr, "")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             server.quit()
     for j in networkingclasstime:
         runTime = j[0] + " " + j[1]
         if j and date == str(runTime):
-            fromaddr = "priyampatel115@gmail.com"
-            toaddr = "priyampatel97@yahoo.com"
+            fromaddr = ""
+            toaddr = ""
 
             msg = MIMEMultipart()
 
@@ -74,7 +74,7 @@ def job():
 
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login(fromaddr, "lionKing21")
+            server.login(fromaddr, "")
             text = msg.as_string()
             server.sendmail(fromaddr, toaddr, text)
             server.quit()
