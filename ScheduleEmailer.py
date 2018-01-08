@@ -1,88 +1,106 @@
-import datetime
 import schedule
-import request
+import datetime
+import time
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from email.MIMEBase import MIMEBase
 from email import encoders
 
-pythonclasstime = [('Monday', '08:15'),
-                   ('Wednesday', '08:15'), ('Friday', '08:15')]
-digitallogictime = [('Tuesday', '08:15'), ('Thursday', '09:20')]
-networkingclasstime = [('Monday', '10:40'),
-                       ('Wednesday', '10:40'), ('Friday', '10:40')]
+pythonclasstime = ['Monday', 'Wednesday', 'Friday']
+digitallogictime = ['Tuesday', 'Wednesday', 'Thursday']
+networkingclasstime = ['Monday', 'Wednesday', 'Friday']
+fromaddr = ""
+toaddr = ""
+password = ""
 
+# Run on scheduled cloud server, below code was for testing
 
-def job():
-    global pythonclasstime
-    global networkingclasstime
-    date = datetime.datetime.now().strftime("%A %H:%M")
-    for i in pythonclasstime:
-        runTime = i[0] + " " + i[1]
-        if i and date == str(runTime):
-            fromaddr = ""
-            toaddr = ""
+# def job():
+#     global pythonclasstime
+#     global digitallogictime
+#     global networkingclasstime
 
-            msg = MIMEMultipart()
+date = datetime.date.today().strftime("%A")
+if date in pythonclasstime:
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = "Python class time and location"
 
-            msg['From'] = fromaddr
-            msg['To'] = toaddr
-            msg['Subject'] = "Python class time and location"
+        body = "Class time and location"
 
-            body = "Class time and location"
+        msg.attach(MIMEText(body, 'plain'))
 
-            msg.attach(MIMEText(body, 'plain'))
+        filename = "python_class.jpg"
+        attachment = open("python_class.jpg", "rb")
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachment; filename= %s"
+                        % filename)
+        msg.attach(part)
 
-            filename = "python_class.jpg"
-            attachment = open("python_class.jpg", "rb")
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload((attachment).read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-            msg.attach(part)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(fromaddr, password)
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+if date in networkingclasstime:
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = "Networking class time and location"
 
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(fromaddr, "")
-            text = msg.as_string()
-            server.sendmail(fromaddr, toaddr, text)
-            server.quit()
-    for j in networkingclasstime:
-        runTime = j[0] + " " + j[1]
-        if j and date == str(runTime):
-            fromaddr = ""
-            toaddr = ""
+        body = "Class time and location"
 
-            msg = MIMEMultipart()
+        msg.attach(MIMEText(body, 'plain'))
 
-            msg['From'] = fromaddr
-            msg['To'] = toaddr
-            msg['Subject'] = "Networking class time and location"
+        filename = "networking_class.jpg"
+        attachment = open("networking_class.jpg", "rb")
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachment; filename= %s"
+                        % filename)
+        msg.attach(part)
 
-            body = "Class time and location"
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(fromaddr, password)
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+if date in digitallogictime:
+        msg = MIMEMultipart()
+        msg['From'] = fromaddr
+        msg['To'] = toaddr
+        msg['Subject'] = "Digital Logic class time and location"
 
-            msg.attach(MIMEText(body, 'plain'))
+        body = "Class time and location"
 
-            filename = "networking_class.jpg"
-            attachment = open("networking_class.jpg", "rb")
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload((attachment).read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename= %s" % filename)
-            msg.attach(part)
+        msg.attach(MIMEText(body, 'plain'))
 
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(fromaddr, "")
-            text = msg.as_string()
-            server.sendmail(fromaddr, toaddr, text)
-            server.quit()
+        filename = "digital_logic.jpg"
+        attachment = open("digital_logic.jpg", "rb")
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachment; filename= %s"
+                        % filename)
+        msg.attach(part)
 
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(fromaddr, password)
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
 
-schedule.every().day.at("08:15").do(job)
-schedule.every().day.at("09:20").do(job)
-schedule.every().day.at("10:40").do(job)
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# schedule.every().day.at("07:00").do(job)
+#
+#
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
