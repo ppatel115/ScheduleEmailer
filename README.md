@@ -1,5 +1,5 @@
 # ScheduleEmailer
-Email me my daily class times and locations, so I have an easy way to check them (because the UF app doesn't do this well anymore)
+Script to email myself my daily class times and locations, so that I have an easy way to check them
 
 ## Usage
 * Initialize fromaddr with your gmail email address
